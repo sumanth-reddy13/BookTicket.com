@@ -1,10 +1,12 @@
 package com.example.BackendDev.BookMyShow.Models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Theatre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,6 +28,9 @@ public class Theatre {
     @JoinColumn
     Movie movie;                 // unidirectional mapping with Movie.
 
+    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)    // Bidirectional mapping with theatreSeat.
+    List<TheatreSeat> listOfTheatreSeats = new ArrayList<>();
+
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
-    List<Show> listOfShowsInATheatre;                 // Bidirectional mapping with Show.
+    List<Show> listOfShowsInATheatre = new ArrayList<>();           // Bidirectional mapping with Show.
 }

@@ -1,22 +1,18 @@
 package com.example.BackendDev.BookMyShow.Models;
 
-
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
-@Table(name = "theatreSeats")
-@Data//Generates getters, setters, requiredArgs Constructor. Required Args constructor is  ~(AllArgs and NoArgs Constructor)
+@Table(name = "theatreSeatRow")
 @AllArgsConstructor
 @NoArgsConstructor
-public class TheatreSeat {
+@Data
+public class TheatreSeatList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,12 +22,13 @@ public class TheatreSeat {
     private SeatType seatType;
 
     @Column(unique = true, nullable = false)
-    private int rowNo;
-
-    @OneToMany(mappedBy = "theatreSeat", cascade = CascadeType.ALL)
-    List<TheatreSeatList> theatreSeatListRow = new ArrayList<>();
+    private int seatNo;
 
     @ManyToOne
     @JoinColumn
-    Theatre theatre;
+    TheatreSeat theatreSeat;
+
+//    @ManyToOne
+//    @JoinColumn
+//    Theatre theatre;
 }
