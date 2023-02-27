@@ -23,6 +23,10 @@ public class TheatreSeat {
     @Enumerated(value = EnumType.STRING)
     private SeatType seatType;
 
-    @Column(unique = true, nullable = false)
-    private int seatNo;
+    @Column(nullable = false)
+    private String seatNo;
+
+    @ManyToOne
+    @JoinColumn
+    Theatre theatre;
 }

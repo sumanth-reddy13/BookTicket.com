@@ -2,11 +2,13 @@ package com.example.BackendDev.BookMyShow.Models;
 
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,21 +16,22 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class ShowSeat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private int id;
 
     private int price;
+
     private boolean isBooked;
-    @Column(unique = true)
-    private int seatNo;
+
+    private String seatNo;
 
     @Enumerated(value = EnumType.STRING)
     private SeatType seatType;
 
-    @CreationTimestamp
-    private Date bookedAt;
+    private LocalDate bookedAt;
 
     @ManyToOne
     @JoinColumn
