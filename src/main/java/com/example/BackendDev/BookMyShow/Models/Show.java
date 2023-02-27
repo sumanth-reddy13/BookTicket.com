@@ -2,6 +2,7 @@ package com.example.BackendDev.BookMyShow.Models;
 
 import com.example.BackendDev.BookMyShow.Enums.ShowType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Show {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -49,6 +51,6 @@ public class Show {
     List<ShowSeat> showSeatList = new ArrayList<>();                // Bidirectional mapping with ShowSeat.
 
     @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
-    List<Ticket> ticketListOfAShow = new ArrayList<>();              // Bidirectional mapping with Ticket.
+    List<Ticket> bookedTickets = new ArrayList<>();              // Bidirectional mapping with Ticket.
 
 }

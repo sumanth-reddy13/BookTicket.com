@@ -7,15 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Entity
 @Table(name = "theatreSeats")
-@Data//Generates getters, setters, requiredArgs Constructor. Required Args constructor is  ~(AllArgs and NoArgs Constructor)
 @AllArgsConstructor
 @NoArgsConstructor
+@Data           //Generates getters, setters, requiredArgs Constructor. Required Args constructor is  ~(AllArgs and NoArgs Constructor)
+
 public class TheatreSeat {
 
     @Id
@@ -25,11 +23,8 @@ public class TheatreSeat {
     @Enumerated(value = EnumType.STRING)
     private SeatType seatType;
 
-    @Column(unique = true, nullable = false)
-    private int rowNo;
-
-    @OneToMany(mappedBy = "theatreSeat", cascade = CascadeType.ALL)
-    List<TheatreSeatList> theatreSeatListRow = new ArrayList<>();
+    @Column(nullable = false)
+    private String seatNo;
 
     @ManyToOne
     @JoinColumn

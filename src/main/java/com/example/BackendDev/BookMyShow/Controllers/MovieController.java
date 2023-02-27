@@ -1,7 +1,7 @@
 package com.example.BackendDev.BookMyShow.Controllers;
 
-import com.example.BackendDev.BookMyShow.EntryDTOs.TheatreEntryDto;
-import com.example.BackendDev.BookMyShow.Services.TheatreService;
+import com.example.BackendDev.BookMyShow.EntryDTOs.MovieEntryDto;
+import com.example.BackendDev.BookMyShow.Services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/theatre")
-public class TheatreController {
+@RequestMapping("/movie")
+public class MovieController {
 
     @Autowired
-    TheatreService theatreService;
+    MovieService movieService;
 
-    @PostMapping("/addTheatre")
-    public ResponseEntity addTheatre(@RequestBody TheatreEntryDto theatreEntryDto) {
+    @PostMapping("/addMovie")
+    public ResponseEntity<String> addMovie(@RequestBody MovieEntryDto movieEntryDto) {
         try {
-            String response = theatreService.addTheatre(theatreEntryDto);
+            String response = movieService.addMovie(movieEntryDto);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
         catch(Exception e) {
-            String response = "Failed to add the theatre";
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            String response = "Failed to add the Movie";
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
     }
 }

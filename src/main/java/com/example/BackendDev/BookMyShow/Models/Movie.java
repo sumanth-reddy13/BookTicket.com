@@ -3,6 +3,7 @@ package com.example.BackendDev.BookMyShow.Models;
 import com.example.BackendDev.BookMyShow.Enums.Genre;
 import com.example.BackendDev.BookMyShow.Enums.Language;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

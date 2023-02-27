@@ -28,9 +28,9 @@ public class Theatre {
     @JoinColumn
     Movie movie;                 // unidirectional mapping with Movie.
 
-    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)    // Bidirectional mapping with theatreSeat.
-    List<TheatreSeat> listOfTheatreSeats = new ArrayList<>();
+    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
+    List<TheatreSeat> theatreSeatList = new ArrayList<>();      // Bidirectional with TheatreSeat.
 
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
-    List<Show> listOfShowsInATheatre = new ArrayList<>();           // Bidirectional mapping with Show.
+    List<Show> listOfShowsInATheatre;                 // Bidirectional mapping with Show.
 }

@@ -4,9 +4,7 @@ import com.example.BackendDev.BookMyShow.EntryDTOs.TheatreEntryDto;
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
 import com.example.BackendDev.BookMyShow.Models.Theatre;
 import com.example.BackendDev.BookMyShow.Models.TheatreSeat;
-import com.example.BackendDev.BookMyShow.Models.TheatreSeatList;
 import com.example.BackendDev.BookMyShow.Repository.TheatreRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,94 +17,48 @@ public class TheatreService {
     @Autowired
     TheatreRepository theatreRepository;
 
-    public String addTheatre(TheatreEntryDto theatreEntryDto) {
+    public String addTheatre(TheatreEntryDto theatreEntryDto) throws Exception{
 
-        // created a theatre object.
-        Theatre theatre =   Theatre.builder()
-                            .name(theatreEntryDto.getName())
-                            .location(theatreEntryDto.getLocation()).build();
-
+        Theatre theatre = new Theatre();
+        theatre.setName(theatreEntryDto.getName());
+        theatre.setLocation(theatreEntryDto.getLocation());
 
         int recliner = theatreEntryDto.getRecliner();
         int classic = theatreEntryDto.getClassic();
-        List<TheatreSeat> theatreSeatsRow = new ArrayList<>();
 
-//        TheatreSeat theatreSeat = new TheatreSeat();
-//        List<TheatreSeatList> list = new ArrayList<>();
+        // To Single Point Responsibility, I have made a method to create TheatreSeat classes and added to the list
+        // The method returns a list of theatreSeats.
 
-//
-//        TheatreSeatList theatreSeatList = new TheatreSeatList();
-//        theatreSeatList.setSeatNo(1);
-//        theatreSeatList.setSeatType(SeatType.RECLINER);
-//        theatreSeatList.setTheatreSeat(theatreSeat);
-//        list.add(theatreSeatList);
-//
-//        theatreSeat.setTheatreSeatListRow(list);
-//        theatreSeat.setTheatre(theatre);
-//        theatreSeat.setRowNo(1);
-//        theatreSeat.setSeatType(SeatType.RECLINER);
-//        theatreSeatsRow.add(theatreSeat);
-//
-//        theatre.setListOfTheatreSeats(theatreSeatsRow);
+        List<TheatreSeat> theatreSeatList = listOfTheatreSeats(recliner, classic, theatre);
 
-        int rowNo = 1;
-        int seatNo = 1;
-
-        int i = 1;
-        while (i <= recliner) {
-
-            TheatreSeat theatreSeat = new TheatreSeat();
-            List<TheatreSeatList> seatList = new ArrayList<>();
-
-
-            for (; i <= recliner; i++) {
-                TheatreSeatList theatreSeatList = new TheatreSeatList();
-                theatreSeatList.setSeatType(SeatType.RECLINER);
-                theatreSeatList.setSeatNo(seatNo);
-                theatreSeatList.setTheatreSeat(theatreSeat);
-                seatList.add(theatreSeatList);
-                seatNo++;
-                if (i % 10 == 0) {
-                    break;
-                }
-            }
-            theatreSeat.setTheatre(theatre);
-            theatreSeat.setSeatType(SeatType.RECLINER);
-            theatreSeat.setRowNo(rowNo);
-            theatreSeat.setTheatreSeatListRow(seatList);
-            theatreSeatsRow.add(theatreSeat);
-            rowNo++;
-        }
-        i = 1;
-        while (i <= classic) {
-
-            TheatreSeat theatreSeat = new TheatreSeat();
-            List<TheatreSeatList> seatList = new ArrayList<>();
-//            int seatNo = 1;
-
-            for (; i <= classic; i++) {
-                TheatreSeatList theatreSeatList = new TheatreSeatList();
-                theatreSeatList.setSeatType(SeatType.CLASSIC);
-                theatreSeatList.setSeatNo(seatNo);
-                theatreSeatList.setTheatreSeat(theatreSeat);
-                seatList.add(theatreSeatList);
-                seatNo++;
-                if (i % 10 == 0) {
-                    break;
-                }
-            }
-            theatreSeat.setTheatre(theatre);
-            theatreSeat.setSeatType(SeatType.CLASSIC);
-            theatreSeat.setRowNo(rowNo);
-            theatreSeat.setTheatreSeatListRow(seatList);
-            theatreSeatsRow.add(theatreSeat);
-            rowNo++;
-        }
-        theatre.setListOfTheatreSeats(theatreSeatsRow);
+        theatre.setTheatreSeatList(theatreSeatList);
 
         theatreRepository.save(theatre);
 
-        return "theatre added";
+        return "theatre added successfully";
     }
 
+    public List<TheatreSeat> listOfTheatreSeats(int recliner, int classic, Theatre theatre) {
+
+        List<TheatreSeat> theatreSeatList = new ArrayList<>();
+
+        for (int i = 1;i <= recliner;i++) {
+            TheatreSeat theatreSeat = new TheatreSeat();
+            theatreSeat.setSeatType(SeatType.RECLINER);
+            theatreSeat.setSeatNo(i + "R");
+            theatreSeat.setTheatre(theatre);
+            theatreSeatList.add(theatreSeat);
+        }
+
+        int seatNo = recliner + 1;
+        for (int i = 1;i <= classic; i++) {
+            TheatreSeat theatreSeat = new TheatreSeat();
+            theatreSeat.setSeatType(SeatType.CLASSIC);
+            theatreSeat.setSeatNo(i + "C");
+            theatreSeat.setTheatre(theatre);
+            theatreSeatList.add(theatreSeat);
+        }
+
+        return theatreSeatList;
+    }
 }
