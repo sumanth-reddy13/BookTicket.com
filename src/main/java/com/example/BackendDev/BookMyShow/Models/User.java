@@ -23,12 +23,14 @@ public class User {
 
     @Column(name = "userName")
     private String name;
+
     @Column(name = "mobileNumber", unique = true, nullable = false)
     private String mobile;
+
     @Column(name = "emailId", unique = true, nullable = false)
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<Ticket> bookedTickets = new ArrayList<>();                        // Bidirectional mapping with Ticket
+    List<Ticket> bookedTickets = new ArrayList<>();                     // Bidirectional mapping with Ticket
 
 }

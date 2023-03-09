@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data                      // Provides getter and setters, all constructors except NoArgs and AllArgs.
 @NoArgsConstructor
 @AllArgsConstructor
 public class TicketEntryDto {
-    private int noOfTickets;
-    private int movieId;
-    private int theatreId;
+    private List<String> requestedSeats;
     private int showId;
     private int userId;
-    private SeatType seatType;
 }

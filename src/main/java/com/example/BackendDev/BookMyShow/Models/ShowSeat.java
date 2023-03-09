@@ -31,7 +31,7 @@ public class ShowSeat {
     @Enumerated(value = EnumType.STRING)
     private SeatType seatType;
 
-    private LocalDate bookedAt;
+    private Date bookedAt;
 
     @ManyToOne
     @JoinColumn

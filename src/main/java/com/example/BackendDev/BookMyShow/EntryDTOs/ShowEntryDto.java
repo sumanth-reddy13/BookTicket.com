@@ -17,5 +17,6 @@ public class ShowEntryDto {
     private ShowType showType;
     private int movieId;
     private int theatreId;
-    private int ticketPrice;
+    private int classicPrice;
+    private int reclinerPrice;
 }
