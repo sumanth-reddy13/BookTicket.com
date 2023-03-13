@@ -30,6 +30,9 @@ public class User {
     @Column(name = "emailId", unique = true, nullable = false)
     private String email;
 
+    @Column(name = "address")
+    private String address;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Ticket> bookedTickets = new ArrayList<>();                     // Bidirectional mapping with Ticket
 

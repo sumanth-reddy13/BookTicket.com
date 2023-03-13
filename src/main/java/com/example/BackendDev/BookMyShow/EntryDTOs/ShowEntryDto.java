@@ -12,8 +12,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShowEntryDto {
-    private String showTime;
-    private String showDate;
+    private LocalTime showTime;
+    private LocalDate showDate;
     private ShowType showType;
     private int movieId;
     private int theatreId;

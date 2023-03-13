@@ -12,5 +12,6 @@ public class UserEntryDto {
     private String name;
     private String mobile;
     private String email;
+    private String address;
 
 }

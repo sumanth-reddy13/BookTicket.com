@@ -26,6 +26,7 @@ public class Show {
     @Column(name = "showId")
     private int id;
 
+//    @Column(name = "showTime", columnDefinition = "time")
     private LocalTime showTime;
     private LocalDate showDate;
     @Enumerated(value = EnumType.STRING)
@@ -37,6 +38,7 @@ public class Show {
     @UpdateTimestamp
     private Date updatedOn;
 
+//    @Column(name = "movieId")
     @ManyToOne
     @JoinColumn
     Movie movie;              // unidirectional mapping with Movie.

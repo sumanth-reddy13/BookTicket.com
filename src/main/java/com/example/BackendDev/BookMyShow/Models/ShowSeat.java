@@ -1,10 +1,7 @@
 package com.example.BackendDev.BookMyShow.Models;
 
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -33,6 +30,7 @@ public class ShowSeat {
 
     private Date bookedAt;
 
+//    @Column(name = "showId")
     @ManyToOne
     @JoinColumn
     Show show;              // unidirectional mapping with show.

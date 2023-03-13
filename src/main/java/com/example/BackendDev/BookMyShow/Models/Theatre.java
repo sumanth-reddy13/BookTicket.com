@@ -4,17 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity                     // This Annotation creates the table in the database.
 @Table(name = "theatres")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Builder
+@Data                       // Provides getters & setters, and All constructors except NoArgs & AllArgs.
+@Builder                    // Annotation is used to build an Entity.
 public class Theatre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -24,9 +23,12 @@ public class Theatre {
     private String name;
     private String location;
 
-    @ManyToOne
-    @JoinColumn
-    Movie movie;                 // unidirectional mapping with Movie.
+    @ManyToMany
+    @JoinTable(name = "MTM",
+            joinColumns = @JoinColumn(name = "theatreId"),
+            inverseJoinColumns = @JoinColumn(name = "movieId")
+    )
+    List<Movie> movieList;               // unidirectional mapping with Movie.
 
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
     List<TheatreSeat> theatreSeatList = new ArrayList<>();      // Bidirectional with TheatreSeat.
