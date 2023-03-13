@@ -22,10 +22,9 @@ public class Ticket {
     private int totalAmount;
     private LocalDate showDate;
     private LocalTime showTime;
-
-//    private String ticketId = UUID.randomUUID().toString();
     private String theatreName;
     private String movieName;
+    private int noOfTickets;
 
     @ManyToOne
     @JoinColumn

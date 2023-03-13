@@ -1,6 +1,8 @@
 package com.example.BackendDev.BookMyShow.Services;
 
 import com.example.BackendDev.BookMyShow.Converters.ShowEntryDtoToShowEntity;
+import com.example.BackendDev.BookMyShow.EntryDTOs.GetEmptySeatsEntryDto;
+import com.example.BackendDev.BookMyShow.EntryDTOs.GetTimingEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.ShowEntryDto;
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
 import com.example.BackendDev.BookMyShow.Models.*;
@@ -10,6 +12,7 @@ import com.example.BackendDev.BookMyShow.Repository.TheatreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +45,7 @@ public class ShowService {
 
 
         theatre.getListOfShowsInATheatre().add(show);       // setting the attributes of theatre entity by adding show to its show list.
-        theatre.setMovie(movie);
+        theatre.getMovieList().add(movie);
 
 
         movieRepository.save(movie);            // Movie is the parent to both theatre and show. Therefore, adding theatre to the db will automatically add theatre and show.
@@ -50,7 +53,7 @@ public class ShowService {
         return "show created";
     }
 
-    public List<ShowSeat> createShowSeatList(ShowEntryDto showEntryDto, Show show, Theatre theatre) {
+    private List<ShowSeat> createShowSeatList(ShowEntryDto showEntryDto, Show show, Theatre theatre) {
 
         int reclinerPrice = showEntryDto.getReclinerPrice();
         int classicPrice = showEntryDto.getClassicPrice();
@@ -72,5 +75,30 @@ public class ShowService {
         return showSeatList;
     }
 
+    public ArrayList<LocalTime> getShowTimings(GetTimingEntryDto getTimingEntryDto) throws Exception{
+        int theatreId = getTimingEntryDto.getTheatreId();
+        int movieId = getTimingEntryDto.getMovieId();
 
+        ArrayList<Time> timings =  showRepository.getShowTimings(theatreId, movieId);
+        ArrayList<LocalTime> localTimes = new ArrayList<>();
+
+        for (Time t : timings) {
+            localTimes.add(t.toLocalTime());
+        }
+
+        return localTimes;
+    }
+
+    public List<String> getEmptySeatsForAShow(GetEmptySeatsEntryDto getEmptySeatsEntryDto) {
+        int showNo = getEmptySeatsEntryDto.getShowNo();
+        List<String> emptySeatList = showRepository.getEmptySeats(showNo);
+
+//        List<String> seatList = new ArrayList<>();
+//        int i = 0;
+//        for (Object[] a : emptySeatList) {
+//            System.out.println(a[i]);
+//            seatList.add((String) a[i++]);
+//        }
+        return emptySeatList;
+    }
 }

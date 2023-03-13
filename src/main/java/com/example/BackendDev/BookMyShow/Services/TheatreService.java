@@ -1,13 +1,19 @@
 package com.example.BackendDev.BookMyShow.Services;
 
+import com.example.BackendDev.BookMyShow.EntryDTOs.GetTheatreByLocEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.TheatreEntryDto;
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
+import com.example.BackendDev.BookMyShow.Enums.ShowType;
 import com.example.BackendDev.BookMyShow.Models.Theatre;
 import com.example.BackendDev.BookMyShow.Models.TheatreSeat;
 import com.example.BackendDev.BookMyShow.Repository.TheatreRepository;
+import com.example.BackendDev.BookMyShow.ResponseDTOs.GetTheatresByLocDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +66,34 @@ public class TheatreService {
         }
 
         return theatreSeatList;
+    }
+
+    public List<GetTheatresByLocDto> getTheatresByLoc(GetTheatreByLocEntryDto getTheatreByLocEntryDto) {
+
+        String location = getTheatreByLocEntryDto.getLocation();
+
+        List<Object[]> theatreList = theatreRepository.getTheatresByLoc(location);
+
+        List<GetTheatresByLocDto> listOfTheatres = new ArrayList<>();
+        for (Object[] a : theatreList) {
+
+            Time t = (Time)a[4];
+            Date d = (Date)a[5];
+
+            GetTheatresByLocDto g = GetTheatresByLocDto.builder()
+                    .location((String) a[0])
+                    .theatreName((String) a[1])
+                    .movieName((String) a[2])
+                    .showId((int) a[3])
+                    .showTime(t.toLocalTime())
+                    .showDate(d.toLocalDate())
+                    .showType(ShowType.valueOf((String)a[6])).build();
+
+            listOfTheatres.add(g);
+
+//            for (int i = 0;i < a.length;i++) System.out.print(a[i] + " ");
+//            System.out.println();
+        }
+        return listOfTheatres;
     }
 }

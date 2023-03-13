@@ -36,7 +36,7 @@ public class Movie {
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)    // Bidirectional Mapping with Theatre
+    @ManyToMany(mappedBy = "movieList", cascade = CascadeType.ALL)    // Bidirectional Mapping with Theatre
     List<Theatre> theatreList = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)    // Bidirectional Mapping with Show

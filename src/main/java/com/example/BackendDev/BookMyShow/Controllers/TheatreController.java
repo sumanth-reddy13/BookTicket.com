@@ -1,14 +1,12 @@
 package com.example.BackendDev.BookMyShow.Controllers;
 
+import com.example.BackendDev.BookMyShow.EntryDTOs.GetTheatreByLocEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.TheatreEntryDto;
 import com.example.BackendDev.BookMyShow.Services.TheatreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/theatre")
@@ -25,6 +23,17 @@ public class TheatreController {
         }
         catch(Exception e) {
             String response = "Failed to add the theatre";
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/getTheatresByLocation")
+    public ResponseEntity getTheatreByLoc(@RequestBody GetTheatreByLocEntryDto getTheatreByLocEntryDto) {
+        try {
+            return new ResponseEntity<>(theatreService.getTheatresByLoc(getTheatreByLocEntryDto), HttpStatus.FOUND);
+        }
+        catch(Exception e) {
+            String response = e.getLocalizedMessage();
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
