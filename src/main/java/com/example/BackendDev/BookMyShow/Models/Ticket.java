@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "ticket")
@@ -21,15 +19,13 @@ public class Ticket {
     @Id
     @Column(name = "ticketId")
     private int id;
-    @Column(updatable = false, insertable = false)
-    private String ticketId = UUID.randomUUID().toString();
-    private double totalAmount;
+    private int totalAmount;
     private LocalDate showDate;
     private LocalTime showTime;
+
+//    private String ticketId = UUID.randomUUID().toString();
     private String theatreName;
     private String movieName;
-
-    // List of Booked Seats.
 
     @ManyToOne
     @JoinColumn
