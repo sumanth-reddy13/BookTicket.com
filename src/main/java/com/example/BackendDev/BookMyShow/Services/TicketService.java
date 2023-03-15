@@ -1,7 +1,6 @@
 package com.example.BackendDev.BookMyShow.Services;
 
 import com.example.BackendDev.BookMyShow.Converters.TicketEntryDtoToTicketEntity;
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetNoOfTicketBookedEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.TicketEntryDto;
 import com.example.BackendDev.BookMyShow.Models.*;
 import com.example.BackendDev.BookMyShow.Repository.*;
@@ -11,7 +10,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -107,12 +105,7 @@ public class TicketService {
         return true;
     }
 
-    public Integer ticketsBookedForMovie(GetNoOfTicketBookedEntryDto getNoOfTicketBookedEntryDto) {
-        String movieName = getNoOfTicketBookedEntryDto.getMovieName();
-        String fromDate = getNoOfTicketBookedEntryDto.getFromDate();
-        String toDate = getNoOfTicketBookedEntryDto.getToDate();
-
-//        int movieId = movieRepository.getMovieId(movieName);
+    public Integer ticketsBookedForMovie(String movieName, String fromDate, String toDate) {
 
         Integer ticketsBooked = ticketRepository.getTicketsBooked(movieName, fromDate, toDate);
         if (ticketsBooked == null) return 0;

@@ -13,7 +13,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Object[]> maxShows();
 
     @Query(value = "select id from movies where movie_name=:movieName", nativeQuery = true)
-    int getMovieId(String movieName);
+    Integer getMovieId(String movieName);
 
     @Query(value = "select name FROM MTM AS m LEFT JOIN theatres AS t " +
             "ON m.theatre_id = t.theatre_id where movie_id=:movieId", nativeQuery = true)

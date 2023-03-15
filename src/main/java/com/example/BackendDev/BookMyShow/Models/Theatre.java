@@ -28,7 +28,7 @@ public class Theatre {
             joinColumns = @JoinColumn(name = "theatreId"),
             inverseJoinColumns = @JoinColumn(name = "movieId")
     )
-    List<Movie> movieList;               // unidirectional mapping with Movie.
+    List<Movie> movieList;               // ManyToMany Mapping with Movie.
 
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL)
     List<TheatreSeat> theatreSeatList = new ArrayList<>();      // Bidirectional with TheatreSeat.

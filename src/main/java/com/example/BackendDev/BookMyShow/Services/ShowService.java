@@ -1,8 +1,6 @@
 package com.example.BackendDev.BookMyShow.Services;
 
 import com.example.BackendDev.BookMyShow.Converters.ShowEntryDtoToShowEntity;
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetEmptySeatsEntryDto;
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetTimingEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.ShowEntryDto;
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
 import com.example.BackendDev.BookMyShow.Models.*;
@@ -75,9 +73,7 @@ public class ShowService {
         return showSeatList;
     }
 
-    public ArrayList<LocalTime> getShowTimings(GetTimingEntryDto getTimingEntryDto) throws Exception{
-        int theatreId = getTimingEntryDto.getTheatreId();
-        int movieId = getTimingEntryDto.getMovieId();
+    public ArrayList<LocalTime> getShowTimings(int movieId, int theatreId) throws Exception{
 
         ArrayList<Time> timings =  showRepository.getShowTimings(theatreId, movieId);
         ArrayList<LocalTime> localTimes = new ArrayList<>();
@@ -89,16 +85,10 @@ public class ShowService {
         return localTimes;
     }
 
-    public List<String> getEmptySeatsForAShow(GetEmptySeatsEntryDto getEmptySeatsEntryDto) {
-        int showNo = getEmptySeatsEntryDto.getShowNo();
+    public List<String> getEmptySeatsForAShow(int showNo) {
+
         List<String> emptySeatList = showRepository.getEmptySeats(showNo);
 
-//        List<String> seatList = new ArrayList<>();
-//        int i = 0;
-//        for (Object[] a : emptySeatList) {
-//            System.out.println(a[i]);
-//            seatList.add((String) a[i++]);
-//        }
         return emptySeatList;
     }
 }
