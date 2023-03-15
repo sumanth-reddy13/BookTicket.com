@@ -1,6 +1,6 @@
 Movie-Ticket Booking Application
 
-This a Spring Boot application that allows users to book movie tickets and get movie related information such as show timings, theatre locations etc.
+This is a Spring Boot application that allows users to book movie tickets and get movie related information such as show timings, theatre locations etc.
 
 Description
 
@@ -27,8 +27,10 @@ Installing
 Advise for common problems or issues:
 
   1) If you are facing issues while integrating Swagger UI, chances are Swagger might not be supporting Spring higher version. There are 3 steps you need to take to        overcome this issue:
-                     1) Downgrade the Spring version to 2.4.3
-                     2) Replace dependency mysql-connector-j with mysql-connector-java
-                     3) Earlier, if you are using Spring version above 2.8 and downgraded to 2.4.3, you have to change from Jakarta Persistence API to                                         javax.persistence for the management of relational data in applications using Java Platform.
+                     -> Downgrade the Spring version to 2.4.3.
+                     
+                     -> Replace dependency mysql-connector-j with mysql-connector-java.
+                     
+                     -> Earlier, if you are using Spring version above 2.8 and downgraded to 2.4.3, you have to change from Jakarta Persistence API to                                         javax.persistence for the management of relational data in applications using Java Platform.
 
   2) Otherwise, you can skip integrating Swagger UI with your Java application. As an alternative, you can test the APIs using Postman.
