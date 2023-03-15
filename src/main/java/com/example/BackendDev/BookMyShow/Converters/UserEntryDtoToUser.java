@@ -13,7 +13,8 @@ public class UserEntryDtoToUser {
         User user = User.builder()
                 .name(userEntryDto.getName())
                 .mobile(userEntryDto.getMobile())
-                .email(userEntryDto.getEmail()).build();
+                .email(userEntryDto.getEmail())
+                .address(userEntryDto.getAddress()).build();
 
         return user;
     }

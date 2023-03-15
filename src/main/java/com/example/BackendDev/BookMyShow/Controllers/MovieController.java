@@ -1,8 +1,8 @@
 package com.example.BackendDev.BookMyShow.Controllers;
 
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetMoviesByGenreEntryDto;
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetTheatresByMovieEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.MovieEntryDto;
+import com.example.BackendDev.BookMyShow.Models.Theatre;
+import com.example.BackendDev.BookMyShow.ResponseDTOs.GetMoviesByGenreResponseDto;
 import com.example.BackendDev.BookMyShow.Services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,9 +42,10 @@ public class MovieController {
     }
 
     @GetMapping("/getTheatresByMovie")
-    public ResponseEntity getTheatresByMovie(@RequestBody GetTheatresByMovieEntryDto getTheatresByMovieEntryDto) {
+    public ResponseEntity getTheatresByMovie(@RequestParam("movieName") String movieName) {
         try {
-            return new ResponseEntity<>(movieService.getTheatresOfAMovie(getTheatresByMovieEntryDto), HttpStatus.FOUND);
+            List<String> theatreList = movieService.getTheatresOfAMovie(movieName);
+            return new ResponseEntity<>(theatreList, HttpStatus.FOUND);
         }
         catch(Exception e) {
             String response = e.getLocalizedMessage();
@@ -53,9 +54,10 @@ public class MovieController {
     }
 
     @GetMapping("getMoviesByGenre")
-    public ResponseEntity getMoviesByGenre(@RequestBody GetMoviesByGenreEntryDto getMoviesByGenreEntryDto) {
+    public ResponseEntity getMoviesByGenre(@RequestParam("genre") String genre) {
         try {
-            return new ResponseEntity<>(movieService.getMoviesByGenre(getMoviesByGenreEntryDto), HttpStatus.FOUND);
+            List<GetMoviesByGenreResponseDto> moviesList = movieService.getMoviesByGenre(genre);
+            return new ResponseEntity<>(moviesList, HttpStatus.FOUND);
         }
         catch(Exception e) {
             String response = e.getLocalizedMessage();

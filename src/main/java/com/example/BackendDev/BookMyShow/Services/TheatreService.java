@@ -1,6 +1,5 @@
 package com.example.BackendDev.BookMyShow.Services;
 
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetTheatreByLocEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.TheatreEntryDto;
 import com.example.BackendDev.BookMyShow.Enums.SeatType;
 import com.example.BackendDev.BookMyShow.Enums.ShowType;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +66,7 @@ public class TheatreService {
         return theatreSeatList;
     }
 
-    public List<GetTheatresByLocDto> getTheatresByLoc(GetTheatreByLocEntryDto getTheatreByLocEntryDto) {
-
-        String location = getTheatreByLocEntryDto.getLocation();
-
+    public List<GetTheatresByLocDto> getTheatresByLoc(String location) {
         List<Object[]> theatreList = theatreRepository.getTheatresByLoc(location);
 
         List<GetTheatresByLocDto> listOfTheatres = new ArrayList<>();
@@ -91,8 +86,6 @@ public class TheatreService {
 
             listOfTheatres.add(g);
 
-//            for (int i = 0;i < a.length;i++) System.out.print(a[i] + " ");
-//            System.out.println();
         }
         return listOfTheatres;
     }

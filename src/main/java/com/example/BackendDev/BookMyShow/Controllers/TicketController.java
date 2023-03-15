@@ -1,10 +1,7 @@
 package com.example.BackendDev.BookMyShow.Controllers;
 
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetNoOfTicketBookedEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.TicketEntryDto;
-import com.example.BackendDev.BookMyShow.Repository.TicketRepository;
 import com.example.BackendDev.BookMyShow.Services.TicketService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +26,10 @@ public class TicketController {
         }
     }
 
-    @GetMapping("getTicketsBooked")
-    public ResponseEntity getTicketsBooked(@RequestBody GetNoOfTicketBookedEntryDto getNoOfTicketBookedEntryDto) {
+    @GetMapping("getTicketsBooked/{movie}/{fromDate}/{toDate}")
+    public ResponseEntity getTicketsBooked(@PathVariable("movie") String movie, @PathVariable("fromDate") String fromDate, @PathVariable("toDate") String toDate) {
         try {
-            return new ResponseEntity<>(ticketService.ticketsBookedForMovie(getNoOfTicketBookedEntryDto), HttpStatus.FOUND);
+            return new ResponseEntity<>(ticketService.ticketsBookedForMovie(movie, fromDate, toDate), HttpStatus.FOUND);
         }
         catch(Exception e) {
             String response = e.getLocalizedMessage();

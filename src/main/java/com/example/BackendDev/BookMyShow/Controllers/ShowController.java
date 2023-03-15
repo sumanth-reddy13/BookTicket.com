@@ -1,7 +1,5 @@
 package com.example.BackendDev.BookMyShow.Controllers;
 
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetEmptySeatsEntryDto;
-import com.example.BackendDev.BookMyShow.EntryDTOs.GetTimingEntryDto;
 import com.example.BackendDev.BookMyShow.EntryDTOs.ShowEntryDto;
 import com.example.BackendDev.BookMyShow.Services.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/show")
@@ -34,9 +33,9 @@ public class ShowController {
 
 
     @GetMapping("getShowTimings")
-    public ResponseEntity getShowTimings(@RequestBody GetTimingEntryDto getTimingEntryDto) {
+    public ResponseEntity getShowTimings(@RequestParam("movieId") int movieId, @RequestParam("theatreId") int theatreId) {
         try {
-            ArrayList<LocalTime> list = showService.getShowTimings(getTimingEntryDto);
+            ArrayList<LocalTime> list = showService.getShowTimings(movieId, theatreId);
             return new ResponseEntity<>(list, HttpStatus.FOUND);
         }
         catch (Exception e) {
@@ -45,10 +44,11 @@ public class ShowController {
         }
     }
 
-    @GetMapping("/getEmptySeats")
-    public ResponseEntity getEmptySeats(@RequestBody GetEmptySeatsEntryDto getEmptySeatsEntryDto) {
+    @GetMapping("/getEmptySeats/{showNo}")
+    public ResponseEntity getEmptySeats(@PathVariable("showNo") int showNo) {
         try {
-            return new ResponseEntity<>(showService.getEmptySeatsForAShow(getEmptySeatsEntryDto), HttpStatus.FOUND);
+            List<String> emptySeats = showService.getEmptySeatsForAShow(showNo);
+            return new ResponseEntity<>(emptySeats, HttpStatus.FOUND);
         }
         catch(Exception e) {
             String response = e.getLocalizedMessage();
