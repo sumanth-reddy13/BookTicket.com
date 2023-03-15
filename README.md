@@ -8,15 +8,13 @@ The Technology used to build this project is Java, Spring Framework, MySQL, JPA 
 
 This application is aimed at providing a simple and easy way to book movie tickets online and also to get movie related information.
 
-Getting Started
+Getting Started:
 
-Dependencies
-Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-ex. Windows 10
-Knowledge on Java, Spring Framework is required. You should be able to write SQL queries. 
-Libraries: Spring Web, Spring Data JPA, MySQL Driver
+1) Knowledge on Java, Spring Framework is required. You should be able to write SQL queries.
 
-Installing
+2) Libraries: Spring Web, Spring Data JPA, MySQL Driver
+
+Installing:
 
   1) Clone the repository to your local machine and import it into your IDE of choice
   2) You will need to have Java 8 or above version and Maven installed on your computer.
@@ -27,10 +25,11 @@ Installing
 Advise for common problems or issues:
 
   1) If you are facing issues while integrating Swagger UI, chances are Swagger might not be supporting Spring higher version. There are 3 steps you need to take to        overcome this issue:
-                     -> Downgrade the Spring version to 2.4.3.
+  
+      -> Downgrade the Spring version to 2.4.3.
                      
-                     -> Replace dependency mysql-connector-j with mysql-connector-java.
+     -> Replace dependency mysql-connector-j with mysql-connector-java.
                      
-                     -> Earlier, if you are using Spring version above 2.8 and downgraded to 2.4.3, you have to change from Jakarta Persistence API to                                         javax.persistence for the management of relational data in applications using Java Platform.
+     -> Earlier, if you are using Spring version above 2.8 and downgraded to 2.4.3, you have to change from Jakarta Persistence API to                                         javax.persistence for the management of relational data in applications using Java Platform.
 
   2) Otherwise, you can skip integrating Swagger UI with your Java application. As an alternative, you can test the APIs using Postman.
